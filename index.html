@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Elden Ring Pomodoro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="navbar">
+        <div class="title">
+          <h3 class="title">Elden Ring Pomodoro</h3>
+        </div>
+        <div class="buttons">
+          <button id="minimize">-</button>
+          <button id="close">X</button>
+        </div>
+      </div>
+      <div class="app">
+        <div id="bosses">
+          <ul>
+            <li id="boss0"></li>
+            <li id="boss1"></li>
+            <li id="boss2"></li>
+            <li id="boss3"></li>
+          </ul>
+        </div>
+        <div id="timer">
+          <button id="startPomodoro"><img src="./assets/jarro.png" alt=""></button>
+          <button id="startRest"><img src="./assets/resting.png" alt=""></button>
+          <div id="setTimer">
+            <div id="minutos"></div>
+            <div id="segundos"></div>
+          </div>
+          <div id="message"></div>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script src="./scripts.js"></script>
+  <script src="./renderer.js"></script>
+</html>

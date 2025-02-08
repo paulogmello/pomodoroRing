@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "mantinia";
+  src: url("./mantinia.otf");
+}
+:root {
+  --colorOne: #f9c043;
+  --colorTwo: #27170d;
+}
+body {
+  background-color: var(--colorTwo);
+  height: 400px;
+  width: 400px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  color: white;
+  background-color: #653815;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.title {
+  font-family: "mantinia";
+  -webkit-app-region: drag;
+  width: 80%;
+  font-size: larger;
+  color: var(--colorOne);
+  padding: 5px 0;
+  margin: 0;
+}
+
+.buttons {
+  width: 20%;
+  color: white;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.buttons button {
+  color: var(--colorOne); 
+  margin: 0;
+  margin-left: 5px;
+  background-color: inherit;
+  border: solid 2px var(--colorOne);
+  border-radius: 5px;
+  font-size: 10px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  color: var(--colorTwo);
+  background-color: var(--colorOne);
+}
+
+#timer button {
+  background-color: inherit;
+  border: none;
+}
+
+.app {
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+  padding: 10px;
+}
+
+#bosses {
+  display: flex;
+  width: 20%;
+}
+
+#bosses img {
+  max-height: 80px;
+} 
+
+#bosses ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+#setTimer{
+font-size: 5rem;
+font-family: 'mantinia';
+color: var(--colorOne);
+display: flex;
+}
+
+#timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+#startRest {
+  display: none;
+}
+
+#message {
+    color: var(--colorOne);
+}
