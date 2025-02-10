@@ -5,7 +5,15 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder"
+  },
+  "build": {
+    "appId": "paulogmello",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "keywords": [
     "pomodoro"
@@ -13,7 +21,8 @@
   "author": "paulogmello",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^34.1.1"
+    "electron": "^34.1.1",
+    "electron-builder": "^25.1.8"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "dependencies": {

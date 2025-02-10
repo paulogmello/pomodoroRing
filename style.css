@@ -2,17 +2,28 @@
   font-family: "mantinia";
   src: url("./mantinia.otf");
 }
+@font-face {
+  font-family: "agmena";
+  src: url("./agmena-pro-book.ttf");
+}
 :root {
   --colorOne: #f9c043;
   --colorTwo: #27170d;
+  --colorThree: #040200;
 }
 body {
-  background-color: var(--colorTwo);
+  background: var(--colorThree);
+  background: linear-gradient(
+    0deg,
+    var(--colorThree) 80%,
+    var(--colorTwo) 100%
+  );
   height: 400px;
   width: 400px;
   overflow: hidden;
   padding: 0;
   margin: 0;
+  font-family: "agmena";
 }
 
 main {
@@ -23,20 +34,22 @@ main {
 
 .navbar {
   color: white;
-  background-color: #653815;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
 }
 
-.title {
-  font-family: "mantinia";
+.title-container {
+  padding: 2px 0;
   -webkit-app-region: drag;
   width: 80%;
+}
+
+.title {
+  font-family: "mantinia";
   font-size: larger;
   color: var(--colorOne);
-  padding: 5px 0;
   margin: 0;
 }
 
@@ -49,7 +62,7 @@ main {
 }
 
 .buttons button {
-  color: var(--colorOne); 
+  color: var(--colorOne);
   margin: 0;
   margin-left: 5px;
   background-color: inherit;
@@ -72,26 +85,36 @@ main {
   background-color: var(--colorOne);
 }
 
-#timer button {
+#timer button,
+img {
   background-color: inherit;
   border: none;
+  transition-duration: 1s;
+  cursor: pointer;
 }
+#timer img:hover {
+  filter: drop-shadow(0 0 10px var(--colorOne));
+}
+
+
 
 .app {
   display: flex;
   align-items: stretch;
+  justify-content: center;
   flex-grow: 1;
   padding: 10px;
 }
 
 #bosses {
-  display: flex;
-  width: 20%;
+  display: none;
+  width: 20%; 
 }
 
 #bosses img {
   max-height: 80px;
-} 
+  cursor: default;
+}
 
 #bosses ul {
   list-style-type: none;
@@ -103,19 +126,18 @@ main {
   justify-content: center;
   align-items: center;
 }
-#setTimer{
-font-size: 5rem;
-font-family: 'mantinia';
-color: var(--colorOne);
-display: flex;
+#setTimer {
+  font-size: 5rem;
+  font-family: "mantinia";
+  color: var(--colorOne);
+  display: flex;
 }
 
 #timer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 80%;
+  align-items: center; 
 }
 
 #startRest {
@@ -123,5 +145,6 @@ display: flex;
 }
 
 #message {
-    color: var(--colorOne);
+  color: var(--colorOne);
+  text-align: center;
 }

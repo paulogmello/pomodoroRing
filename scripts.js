@@ -1,23 +1,24 @@
 const $ = require("jquery");
 
 $(document).ready(function () {
+  
   //VARIÁVEIS
   const startPomodoro = $("#startPomodoro");
   const restPomodoro = $("#startRest");
   var numbers = $("#setTimer");
-  var minutos = $("#minutos");
-  var segundos = $("#segundos");
+  var tempo = $("#tempo"); 
   var show = $("#show");
 
   // VALORES EM TEMPO
   const pomodoro30 = 1800;
-  const pomodoro25 = 8;
-  const pomodoro05 = 5;
+  const pomodoro25 = 1500;
+  const pomodoro05 = 300;
 
   var timer30 = pomodoro30;
   var timer25 = pomodoro25;
   var timer05 = pomodoro05;
   var times = 0;
+  var newGame = 1;
 
   //   DESCANSO
   var rest = false;
@@ -29,7 +30,6 @@ $(document).ready(function () {
     let bosses = [
       "crucible",
       "godrick",
-      "godrick",
       "malenia",
       "maliketh",
       "margit",
@@ -37,7 +37,6 @@ $(document).ready(function () {
       "radahn",
       "rickyard",
       "mohg",
-      "crucible",
     ];
 
     let numbers = new Set();
@@ -50,41 +49,65 @@ $(document).ready(function () {
 
     return bossFight;
   }
-  var escolhidos = escolherBosses();
-  escolhidos.forEach((bosses, index) => {
-    $("#boss" + index).html(`
-        <img src='./assets/${bosses}.png'></img>
-        `);
-  });
+  function criarBosses() {
+    var escolhidos = escolherBosses();
+    $("#bosses").show().addClass("display", "flex");
+    escolhidos.forEach((bosses, index) => {
+      $("#boss" + index).html(`<img src='./assets/${bosses}.png'></img>`);
+    });
+    return escolhidos;
+  }
+  
+  function mostrarTempo(tempo) {
+    var minutos = Math.floor(tempo / 60);
+    var segundos = (tempo % 60);
+    
+    minutos = minutos < 10 ? `0${minutos}` : minutos;
+    segundos = segundos < 10 ? `0${segundos}` : segundos;
 
+    return $("#tempo").html(`${minutos}:${segundos}`)
+  }
+
+  if (times == 0) {
+    var escolhidos = criarBosses();
+    $("#timer").css("width", "80%");
+  }
   //   INICIAR POMODORO
   startPomodoro.on("click", function () {
-    if (rest == false && times < 4) {
-      var fighting = setInterval(function () {
-        if (timer25 > 0) {
-          startPomodoro.hide();
-          timer25--;
-          minutos.html((timer25 / 60).toFixed(0));
-          segundos.html(timer25 % 60);
-        } else {
-          clearInterval(fighting);
-          numbers.hide();
-          rest = true;
-          timer25 = pomodoro25;
-          $(`#boss${times} img`).css({
-            "-webkit-filter": "grayscale(100%)",
-            filter: "grayscale(100%)",
-          });
+    if (times == 0) {
+      $("#timer").css("width", "80%");
+    }
+    console.log(escolhidos);
+    var fighting = setInterval(function () {
+      if (timer25 > 0) {
+        startPomodoro.hide();
+        timer25--;
+        mostrarTempo(timer25) 
+      } else {
+        numbers.hide();
+        clearInterval(fighting);
+        $(`#boss${times} img`).css({
+          "-webkit-filter": "grayscale(100%)",
+          filter: "grayscale(100%)",
+        });
+        timer25 = pomodoro25;
+        $("#message").html(
+          `<p>You defeat <b>${escolhidos[times]}</b>, it's time to rest now</p>`
+        );
+        times++;
+        if (times == 4) {
           $("#message").html(`
-            <p>You beat <b>${escolhidos[times]}</b>, it's time to rest now</p>`);
+            <p>You defeat <b>${escolhidos[3]}</b> and you are the <b>Elden Lord</b> now, rest again for a while until start NG${newGame}</p>`);
+          startLongRest();
+        } else {
           startRest();
         }
-      }, 1000);
-    } else {
-      alert("hora do long Rest");
-    }
+      }
+    }, 1000);
   });
+  // DESCANSO CURTO
   function startRest() {
+    console.log(times);
     restPomodoro.show();
     restPomodoro.off("click").on("click", function () {
       restPomodoro.hide();
@@ -93,16 +116,42 @@ $(document).ready(function () {
         if (timer05 > 0) {
           numbers.show();
           timer05--;
-          minutos.html((timer05 / 60).toFixed(0));
-          segundos.html(timer05 % 60);
+          mostrarTempo(timer05)
         } else {
           clearInterval(restTimer);
-          minutos.empty();
-          segundos.empty();
+          tempo.empty()
           timer05 = pomodoro05;
-          times++;
-          rest = false;
           startPomodoro.show();
+        }
+      }, 1000);
+    });
+  }
+  // DESCANSO LONGO
+  function startLongRest() {
+    startPomodoro.hide();
+    restPomodoro.show();
+    restPomodoro.off("click").on("click", function () {
+      $("#bosses").hide();
+      $("#timer").css("width", "80%");
+      restPomodoro.hide();
+      $("#bosses img").remove();
+      $("#message").empty();
+      var restTimer = setInterval(function () {
+        if (timer30 > 0) {
+          numbers.show();
+          timer30--;
+          mostrarTempo(timer30)
+        } else {
+          clearInterval(restTimer);
+          times++;
+          tempo.empty()
+          timer30 = pomodoro30;
+          times = 0;
+          newGame++;
+          rest = false;
+          escolhidos = criarBosses();
+          startPomodoro.show();
+          $("#bosses").show();
         }
       }, 1000);
     });
